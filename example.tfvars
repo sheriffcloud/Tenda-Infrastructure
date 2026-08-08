@@ -21,4 +21,5 @@ admin_port           = 3100
 db_instance_class    = "db.t4g.micro"
 db_allocated_storage = 20
 multi_az             = true
-node_type = "cache.t4g.micro"
+node_type            = "cache.t4g.micro"
+domain_name          = "netforgetech.online"

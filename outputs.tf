@@ -79,3 +79,19 @@ output "redis_port" {
   description = "Port for the Redis cluster"
   value       = module.elasticache.redis_port
 }
+
+
+
+# ── DNS Outputs ─────────────────────────────────────────────────────────────
+
+output "name_servers" {
+  description = "The 4 AWS nameservers — set these at Namecheap"
+  value       = module.dns.name_servers
+}
+
+
+# ── ACM Outputs ─────────────────────────────────────────────────────────────
+output "certificate_arn" {
+  description = "ARN of the validated certificate (for the ALB HTTPS listener)"
+  value       = module.acm.certificate_arn
+}

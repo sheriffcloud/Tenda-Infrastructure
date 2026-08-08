@@ -89,3 +89,37 @@ variable "redis_multi_az" {
   type        = bool
   default     = true
 }
+
+
+# ── Secret Variables ─────────────────────────────────────────────────────────────
+
+# ---- GROUP 1: app-secrets (external service credentials) ----
+variable "app_secrets" {
+  description = "Sensitive external-service credentials"
+  type = object({
+    JWT_SECRET                 = string
+    CLOUDINARY_API_KEY         = string
+    CLOUDINARY_API_SECRET      = string
+    TERMII_API_KEY             = string
+    OPENROUTER_API_KEY         = string
+    RESEND_API_KEY             = string
+    SENTRY_DSN                 = string
+    GOOGLE_OAUTH_CLIENT_SECRET = string
+  })
+  sensitive = true
+}
+
+# ---- GROUP 2: chain-secrets (RPC URLs with keys, webhook secrets, gas key) ----
+variable "chain_secrets" {
+  description = "Sensitive chain values across Solana devnet, Base Sepolia, CELO Alfajores"
+  type        = map(string)
+  sensitive   = true
+}
+
+
+# ── DNS Variables ─────────────────────────────────────────────────────────────
+variable "domain_name" {
+  description = "Domain name for the hosted zone"
+  type        = string
+  default     = "netforgetech.online"
+}
