@@ -22,9 +22,10 @@ module "database" {
   db_instance_class     = var.db_instance_class
   db_name               = var.db_name
   db_username           = var.db_username
-  database_subnet_ids   = module.networking.database_subnet_ids
-  rds_security_group_id = module.networking.rds_security_group_id
   multi_az              = var.multi_az
+
+  database_subnet_ids   = module.networking.database_subnet_ids
+  rds_security_group_id = module.networking.rds_security_group_id  
 
 }
 
@@ -35,8 +36,10 @@ module "elasticache" {
   aws_region              = var.aws_region
   environment             = var.environment
   project_name            = var.project_name
+
   database_subnet_ids     = module.networking.database_subnet_ids
   redis_security_group_id = module.networking.redis_security_group_id
+
   node_type               = var.node_type
   redis_multi_az          = var.redis_multi_az
 }
@@ -92,4 +95,34 @@ module "acm" {
   project_name = var.project_name
   domain_name  = var.domain_name
   zone_id      = module.dns.zone_id
+}
+
+
+module "alb" {
+  source = "./modules/alb"
+
+  aws_region   = var.aws_region
+  environment  = var.environment
+  project_name = var.project_name
+
+  vpc_id                = module.networking.vpc_id
+  public_subnet_ids     = module.networking.public_subnet_ids
+  alb_security_group_id = module.networking.alb_security_group_id
+  certificate_arn       = module.acm.certificate_arn
+  zone_id               = module.dns.zone_id
+
+  domain_name = var.domain_name
+  server_port = var.server_port
+  admin_port  = var.admin_port
+
+}
+
+
+module "ecr" {
+  source = "./modules/ecr"
+
+  aws_region   = var.aws_region
+  environment  = var.environment
+  project_name = var.project_name
+  
 }

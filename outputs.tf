@@ -95,3 +95,28 @@ output "certificate_arn" {
   description = "ARN of the validated certificate (for the ALB HTTPS listener)"
   value       = module.acm.certificate_arn
 }
+
+
+
+# ── ALB Outputs ─────────────────────────────────────────────────────────────
+output "alb_dns_name" {
+  description = "The ALB's AWS DNS name"
+  value       = module.alb.alb_dns_name
+}
+
+output "api_url" {
+  description = "Public API URL"
+  value       = module.alb.api_url
+}
+
+
+# ── ALB Outputs ─────────────────────────────────────────────────────────────
+output "server_repository_url" {
+  description = "ECR URL for the server image (used to tag/push and by ECS)"
+  value       = module.ecr.server_repository_url
+}
+
+output "admin_repository_url" {
+  description = "ECR URL for the admin image"
+  value       = module.ecr.admin_repository_url
+}
