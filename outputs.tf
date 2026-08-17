@@ -120,3 +120,10 @@ output "admin_repository_url" {
   description = "ECR URL for the admin image"
   value       = module.ecr.admin_repository_url
 }
+
+
+# ── ECS Outputs ─────────────────────────────────────────────────────────────
+output "task_definition_arn" {
+  description = "ARN of the ECS task definition"
+  value       = module.ecs.task_definition_arn
+}

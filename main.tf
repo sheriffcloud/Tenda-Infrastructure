@@ -15,17 +15,17 @@ module "networking" {
 module "database" {
   source = "./modules/database"
 
-  aws_region            = var.aws_region
-  environment           = var.environment
-  project_name          = var.project_name
-  db_allocated_storage  = var.db_allocated_storage
-  db_instance_class     = var.db_instance_class
-  db_name               = var.db_name
-  db_username           = var.db_username
-  multi_az              = var.multi_az
+  aws_region           = var.aws_region
+  environment          = var.environment
+  project_name         = var.project_name
+  db_allocated_storage = var.db_allocated_storage
+  db_instance_class    = var.db_instance_class
+  db_name              = var.db_name
+  db_username          = var.db_username
+  multi_az             = var.multi_az
 
   database_subnet_ids   = module.networking.database_subnet_ids
-  rds_security_group_id = module.networking.rds_security_group_id  
+  rds_security_group_id = module.networking.rds_security_group_id
 
 }
 
@@ -33,15 +33,15 @@ module "database" {
 module "elasticache" {
   source = "./modules/elasticache"
 
-  aws_region              = var.aws_region
-  environment             = var.environment
-  project_name            = var.project_name
+  aws_region   = var.aws_region
+  environment  = var.environment
+  project_name = var.project_name
 
   database_subnet_ids     = module.networking.database_subnet_ids
   redis_security_group_id = module.networking.redis_security_group_id
 
-  node_type               = var.node_type
-  redis_multi_az          = var.redis_multi_az
+  node_type      = var.node_type
+  redis_multi_az = var.redis_multi_az
 }
 
 
@@ -124,5 +124,35 @@ module "ecr" {
   aws_region   = var.aws_region
   environment  = var.environment
   project_name = var.project_name
-  
+
+}
+
+
+module "ecs" {
+  source = "./modules/ecs"
+
+  aws_region   = var.aws_region
+  environment  = var.environment
+  project_name = var.project_name
+
+  private_subnet_ids           = module.networking.private_subnet_ids
+  ecs_server_security_group_id = module.networking.ecs_server_security_group_id
+
+  server_image_url = "${module.ecr.server_repository_url}:latest"
+
+  execution_role_arn = module.iam.execution_role_arn
+  task_role_arn      = module.iam.task_role_arn
+
+  server_target_group_arn = module.alb.server_target_group_arn
+
+  connection_strings_arn = module.secrets.connection_strings_arn
+  app_secrets_arn        = module.secrets.app_secrets_arn
+  chain_secrets_arn      = module.secrets.chain_secrets_arn
+
+  server_cpu    = var.server_cpu
+  server_memory = var.server_memory
+  server_port   = var.server_port
+
+  server_environment = var.server_environment
+  server_repository_url = module.ecr.server_repository_url
 }

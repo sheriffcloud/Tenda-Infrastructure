@@ -123,3 +123,21 @@ variable "domain_name" {
   type        = string
   default     = "netforgetech.online"
 }
+
+
+# ── ECS Variables ─────────────────────────────────────────────────────────────
+variable "server_cpu" {
+  description = "CPU units for the server task"
+  type        = number
+  default     = 512 # 0.5 vCPU
+}
+variable "server_memory" {
+  description = "Memory (MB) for the server task"
+  type        = number
+  default     = 1024 # 1 GB
+}
+# Non-secret config (Bucket B) - passed as a map
+variable "server_environment" {
+  type        = map(string)
+  description = "Non-secret env vars (public addresses, config)"
+}
