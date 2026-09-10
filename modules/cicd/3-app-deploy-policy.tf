@@ -44,11 +44,15 @@ data "aws_iam_policy_document" "deploy" {
     ]
   }
 
-  # Invalidate CloudFront cache
+   # Invalidate CloudFront cache
   statement {
-    actions   = ["cloudfront:CreateInvalidation"]
+    actions = [
+      "cloudfront:CreateInvalidation",
+      "cloudfront:ListDistributions",
+    ]
     resources = ["*"]
   }
+  
 }
 
 resource "aws_iam_role_policy" "deploy" {
