@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "server" {
   container_definitions = jsonencode([
     {
       name      = "server"
-      image     = var.server_image_url
+      image     = "${var.server_repository_url}:latest"
       essential = true
 
       portMappings = [
@@ -46,9 +46,9 @@ resource "aws_ecs_task_definition" "server" {
         { name = "CHAIN_SOLANA_DEVNET_WEBHOOK_SECRET", valueFrom = "${var.chain_secrets_arn}:CHAIN_SOLANA_DEVNET_WEBHOOK_SECRET::" },
         { name = "CHAIN_SOLANA_DEVNET_GAS_SEED_KEY", valueFrom = "${var.chain_secrets_arn}:CHAIN_SOLANA_DEVNET_GAS_SEED_KEY::" },
         { name = "CHAIN_EIP155_84532_RPC_URL", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_84532_RPC_URL::" },
-        # { name = "CHAIN_EIP155_84532_RPC_URL_FALLBACK", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_84532_RPC_URL_FALLBACK::" },
-        # { name = "CHAIN_EIP155_11142220_RPC_URL", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_11142220_RPC_URL::" },
-        # { name = "CHAIN_EIP155_11142220_RPC_URL_FALLBACK", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_11142220_RPC_URL_FALLBACK::" }
+        { name = "CHAIN_EIP155_84532_RPC_URL_FALLBACK", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_84532_RPC_URL_FALLBACK::" },
+        { name = "CHAIN_EIP155_11142220_RPC_URL", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_11142220_RPC_URL::" },
+        { name = "CHAIN_EIP155_11142220_RPC_URL_FALLBACK", valueFrom = "${var.chain_secrets_arn}:CHAIN_EIP155_11142220_RPC_URL_FALLBACK::" }
       ]
 
       logConfiguration = {

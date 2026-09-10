@@ -138,8 +138,6 @@ module "ecs" {
   private_subnet_ids           = module.networking.private_subnet_ids
   ecs_server_security_group_id = module.networking.ecs_server_security_group_id
 
-  server_image_url = "${module.ecr.server_repository_url}:latest"
-
   execution_role_arn = module.iam.execution_role_arn
   task_role_arn      = module.iam.task_role_arn
 
@@ -153,6 +151,44 @@ module "ecs" {
   server_memory = var.server_memory
   server_port   = var.server_port
 
-  server_environment = var.server_environment
+  server_environment    = var.server_environment
   server_repository_url = module.ecr.server_repository_url
+
+  admin_repository_url        = module.ecr.admin_repository_url
+  admin_target_group_arn      = module.alb.admin_target_group_arn
+  ecs_admin_security_group_id = module.networking.ecs_admin_security_group_id
+  admin_port                  = var.admin_port
+
+  depends_on = [module.alb]
+
+}
+
+module "static_site" {
+  source = "./modules/static-site"
+
+  providers = {
+    aws           = aws
+    aws.us_east_1 = aws.us_east_1
+  }
+
+  project_name = var.project_name
+  environment  = var.environment
+  domain_name  = var.domain_name
+  zone_id      = module.dns.zone_id
+  # certificate_arn removed — the module makes its own us-east-1 cert
+}
+
+
+module "cicd" {
+  source = "./modules/cicd"
+
+  environment  = var.environment
+  project_name = var.project_name
+
+  github_repo        = var.github_repo
+  deploy_branch      = var.deploy_branch
+  execution_role_arn = module.iam.execution_role_arn
+  task_role_arn      = module.iam.task_role_arn
+  infra_github_repo  = var.infra_github_repo
+
 }

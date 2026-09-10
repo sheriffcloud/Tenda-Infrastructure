@@ -141,3 +141,23 @@ variable "server_environment" {
   type        = map(string)
   description = "Non-secret env vars (public addresses, config)"
 }
+
+
+# ── CICD Variables ─────────────────────────────────────────────────────────────
+variable "github_repo" {
+  type        = string
+  description = "GitHub org/repo allowed to assume the deploy role"
+  default     = "sheriffcloud/tenda-app"
+}
+
+variable "infra_github_repo" {
+  type        = string
+  description = "GitHub org/repo allowed to assume the deploy role"
+  default     = "sheriffcloud/Tenda-Infrastructure"
+}
+
+variable "deploy_branch" {
+  type        = string
+  description = "Branch allowed to deploy"
+  default     = "main"
+}

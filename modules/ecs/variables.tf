@@ -27,10 +27,9 @@ variable "ecs_server_security_group_id" {
   type        = string
 }
 
-# From ECR module
-variable "server_image_url" {
-  description = "URL of the server Docker image"
-  type        = string
+variable "ecs_admin_security_group_id" {
+  description = "Security group for tenda-admin tasks"
+  type = string
 }
 
 # From IAM module
@@ -48,6 +47,11 @@ variable "task_role_arn" {
 variable "server_target_group_arn" {
   description = "Target group ARN for ECS server service to register into"
   type        = string
+}
+
+variable "admin_target_group_arn" {
+  description = "Target group ARN for ECS admin service to register into"
+  type = string
 }
 
 # From secrets module
@@ -84,13 +88,25 @@ variable "server_port" {
   #   default = 3000
 }
 
+variable "admin_port" {
+  description = "Port for the admin task"
+  type        = number
+  #   default = 3001
+}
+
 # Non-secret config (Bucket B) - passed as a map
 variable "server_environment" {
   type        = map(string)
   description = "Non-secret env vars (public addresses, config)"
 }
 
+# From ECR module
 variable "server_repository_url" {
+  type        = string
+  description = "ECR repo URL (without tag) for building image references"
+}
+
+variable "admin_repository_url" {
   type        = string
   description = "ECR repo URL (without tag) for building image references"
 }

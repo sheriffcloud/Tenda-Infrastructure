@@ -127,3 +127,15 @@ output "task_definition_arn" {
   description = "ARN of the ECS task definition"
   value       = module.ecs.task_definition_arn
 }
+
+
+# ── CICD Outputs ─────────────────────────────────────────────────────────────
+output "deploy_role_arn" {
+  description = "IAM role ARN GitHub Actions assumes via OIDC — set as a GitHub repo variable"
+  value       = module.cicd.deploy_role_arn
+}
+
+output "infra_deploy_role_arn" {
+  description = "IAM role ARN for the infra pipeline (Tenda-Infrastructure repo)"
+  value       = module.cicd.infra_deploy_role_arn
+}
