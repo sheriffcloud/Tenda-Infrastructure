@@ -20,6 +20,7 @@ data "aws_iam_policy_document" "github_assume" {
       variable = "token.actions.githubusercontent.com:repository"
       values   = ["sheriffcloud/tenda-app"]
     }
+    
   }
 }
 
