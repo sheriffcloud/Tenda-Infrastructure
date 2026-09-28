@@ -1,7 +1,8 @@
 resource "aws_acm_certificate" "cloudfront" {
-  provider          = aws.us_east_1
-  domain_name       = var.domain_name
-  validation_method = "DNS"
+  provider                  = aws.us_east_1
+  domain_name               = var.domain_name              # netforgetech.online
+  subject_alternative_names = ["*.${var.domain_name}"]     # ← ADD THIS: covers docs., app., etc.
+  validation_method         = "DNS"
 
   lifecycle {
     create_before_destroy = true

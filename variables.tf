@@ -161,3 +161,11 @@ variable "deploy_branch" {
   description = "Branch allowed to deploy"
   default     = "main"
 }
+
+
+# ── Docs Variables ─────────────────────────────────────────────────────────────
+variable "subdomain" {
+  type        = string
+  description = "Subdomain for docs, e.g. docs"
+  default     = "docs"
+}

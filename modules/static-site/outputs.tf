@@ -10,3 +10,8 @@ output "site_url" {
   description = "The URL of the static site"
   value       = "https://${var.domain_name}"
 }
+
+output "cloudfront_certificate_arn" {
+  description = "us-east-1 wildcard cert ARN for CloudFront (shared with other subdomain sites)"
+  value       = aws_acm_certificate_validation.cloudfront.certificate_arn
+}

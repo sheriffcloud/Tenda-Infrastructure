@@ -192,3 +192,16 @@ module "cicd" {
   infra_github_repo  = var.infra_github_repo
 
 }
+
+
+module "docs-site" {
+  source = "./modules/docs-site"
+
+  project_name    = var.project_name
+  environment     = var.environment
+  domain_name     = var.domain_name
+  subdomain       = var.subdomain
+  zone_id         = module.dns.zone_id
+  certificate_arn = module.static_site.cloudfront_certificate_arn
+
+}
