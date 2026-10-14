@@ -144,9 +144,9 @@ output "infra_deploy_role_arn" {
 # ── Docs Outputs ─────────────────────────────────────────────────────────────
 output "docs_url" {
   description = "The URL of the docs site"
-  value       = module.docs_site.docs_url
+  value       = module.docs-site.docs_url
 }
 output "docs_bucket_name" {
   description = "The s3 bucket name for the docs site"
-  value       = module.docs_site.bucket_name
+  value       = module.docs-site.bucket_name
 }

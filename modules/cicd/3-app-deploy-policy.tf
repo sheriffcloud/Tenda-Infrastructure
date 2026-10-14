@@ -41,10 +41,12 @@ data "aws_iam_policy_document" "deploy" {
     resources = [
       "arn:aws:s3:::${var.project_name}-${var.environment}-landing",
       "arn:aws:s3:::${var.project_name}-${var.environment}-landing/*",
+      "arn:aws:s3:::${var.project_name}-${var.environment}-docs",
+      "arn:aws:s3:::${var.project_name}-${var.environment}-docs/*",
     ]
   }
 
-   # Invalidate CloudFront cache
+  # Invalidate CloudFront cache
   statement {
     actions = [
       "cloudfront:CreateInvalidation",
@@ -52,7 +54,7 @@ data "aws_iam_policy_document" "deploy" {
     ]
     resources = ["*"]
   }
-  
+
 }
 
 resource "aws_iam_role_policy" "deploy" {
