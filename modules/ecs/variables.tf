@@ -29,7 +29,12 @@ variable "ecs_server_security_group_id" {
 
 variable "ecs_admin_security_group_id" {
   description = "Security group for tenda-admin tasks"
-  type = string
+  type        = string
+}
+
+variable "ecs_web_security_group_id" {
+  description = "Security group for tenda-web tasks"
+  type        = string
 }
 
 # From IAM module
@@ -51,7 +56,12 @@ variable "server_target_group_arn" {
 
 variable "admin_target_group_arn" {
   description = "Target group ARN for ECS admin service to register into"
-  type = string
+  type        = string
+}
+
+variable "web_target_group_arn" {
+  description = "Target group ARN for ECS web service to register into"
+  type        = string
 }
 
 # From secrets module
@@ -94,6 +104,12 @@ variable "admin_port" {
   #   default = 3001
 }
 
+variable "web_port" {
+  description = "Port for the web task"
+  type        = number
+  #   default = 3200
+}
+
 # Non-secret config (Bucket B) - passed as a map
 variable "server_environment" {
   type        = map(string)
@@ -107,6 +123,11 @@ variable "server_repository_url" {
 }
 
 variable "admin_repository_url" {
+  type        = string
+  description = "ECR repo URL (without tag) for building image references"
+}
+
+variable "web_repository_url" {
   type        = string
   description = "ECR repo URL (without tag) for building image references"
 }

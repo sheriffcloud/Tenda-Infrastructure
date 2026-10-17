@@ -13,6 +13,11 @@ output "admin_target_group_arn" {
   value       = aws_lb_target_group.admin.arn
 }
 
+output "web_target_group_arn" {
+  description = "Target group ARN for ECS web service to register into"
+  value       = aws_lb_target_group.web.arn
+}
+
 output "api_url" {
   description = "Public API URL"
   value       = "https://api.${var.domain_name}"

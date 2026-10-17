@@ -28,3 +28,19 @@ resource "aws_ecr_repository" "admin" {
     Project     = var.project_name
   }
 }
+
+
+resource "aws_ecr_repository" "web" {
+  name                 = "${var.project_name}-${var.environment}-web"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-web"
+    Environment = var.environment
+    Project     = var.project_name
+  }
+}

@@ -22,7 +22,7 @@ resource "aws_ecs_service" "admin" {
   health_check_grace_period_seconds  = 60
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-admin"
+    Name        = "${var.project_name}-${var.environment}-admin"
     Environment = var.environment
     Project     = var.project_name
   }

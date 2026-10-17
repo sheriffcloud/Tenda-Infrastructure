@@ -8,6 +8,7 @@ module "networking" {
   az_count     = var.az_count
   server_port  = var.server_port
   admin_port   = var.admin_port
+  web_port     = var.web_port
 
 }
 
@@ -114,7 +115,7 @@ module "alb" {
   domain_name = var.domain_name
   server_port = var.server_port
   admin_port  = var.admin_port
-
+  web_port    = var.web_port
 }
 
 
@@ -158,6 +159,11 @@ module "ecs" {
   admin_target_group_arn      = module.alb.admin_target_group_arn
   ecs_admin_security_group_id = module.networking.ecs_admin_security_group_id
   admin_port                  = var.admin_port
+
+  web_repository_url        = module.ecr.web_repository_url
+  web_target_group_arn      = module.alb.web_target_group_arn
+  ecs_web_security_group_id = module.networking.ecs_web_security_group_id
+  web_port                  = var.web_port
 
   depends_on = [module.alb]
 

@@ -22,7 +22,7 @@ resource "aws_ecs_task_definition" "admin" {
 
       environment = [
         { name = "NODE_ENV", value = "production" },
-        { name = "PORT",     value = tostring(var.admin_port) }
+        { name = "PORT", value = tostring(var.admin_port) }
       ]
 
       logConfiguration = {
@@ -37,7 +37,7 @@ resource "aws_ecs_task_definition" "admin" {
   ])
 
   tags = {
-    Name = "${var.project_name}-${var.environment}-admin"
+    Name        = "${var.project_name}-${var.environment}-admin"
     Environment = var.environment
     Project     = var.project_name
   }

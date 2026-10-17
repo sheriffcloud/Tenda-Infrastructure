@@ -121,6 +121,11 @@ output "admin_repository_url" {
   value       = module.ecr.admin_repository_url
 }
 
+output "web_repository_url" {
+  description = "ECR URL for the web image"
+  value       = module.ecr.web_repository_url
+}
+
 
 # ── ECS Outputs ─────────────────────────────────────────────────────────────
 output "task_definition_arn" {

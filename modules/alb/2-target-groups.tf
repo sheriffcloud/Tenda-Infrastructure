@@ -49,3 +49,30 @@ resource "aws_lb_target_group" "admin" {
     Project     = var.project_name
   }
 }
+
+
+resource "aws_lb_target_group" "web" {
+  name        = "${var.project_name}-${var.environment}-web-tg"
+  port        = var.web_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  health_check {
+    path                = "/"
+    port                = "traffic-port"
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+    timeout             = 5
+    interval            = 30
+    matcher             = "200-399"
+  }
+
+  deregistration_delay = 30
+
+  tags = {
+    Name        = "${var.project_name}-${var.environment}-web-tg"
+    Environment = var.environment
+    Project     = var.project_name
+  }
+}

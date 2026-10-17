@@ -18,5 +18,6 @@ resource "aws_security_group" "rds" {
   tags = {
     Name        = "${var.project_name}-${var.environment}-rds-sg"
     Environment = var.environment
+    Project     = var.project_name
   }
 }

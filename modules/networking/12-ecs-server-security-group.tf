@@ -26,5 +26,6 @@ resource "aws_security_group" "ecs_server" {
   tags = {
     Name        = "${var.project_name}-${var.environment}-ecs-server-sg"
     Environment = var.environment
+    Project     = var.project_name
   }
 }

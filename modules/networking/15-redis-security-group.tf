@@ -18,5 +18,6 @@ resource "aws_security_group" "redis" {
   tags = {
     Name        = "${var.project_name}-${var.environment}-redis-sg"
     Environment = var.environment
+    Project     = var.project_name
   }
 }

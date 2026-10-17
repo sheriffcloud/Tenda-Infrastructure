@@ -21,3 +21,15 @@ resource "aws_route53_record" "admin" {
     evaluate_target_health = true
   }
 }
+
+resource "aws_route53_record" "web" {
+  zone_id = var.zone_id
+  name    = "app.${var.domain_name}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.main.dns_name
+    zone_id                = aws_lb.main.zone_id
+    evaluate_target_health = true
+  }
+}

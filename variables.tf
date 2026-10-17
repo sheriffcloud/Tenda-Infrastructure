@@ -41,6 +41,12 @@ variable "admin_port" {
   default     = 3100
 }
 
+variable "web_port" {
+  description = "Port for the web task"
+  type        = number
+  default     = 3200
+}
+
 
 # ── Database Variables ─────────────────────────────────────────────────────────────
 

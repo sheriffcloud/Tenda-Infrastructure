@@ -7,3 +7,8 @@ output "admin_repository_url" {
   description = "ECR URL for the admin image"
   value       = aws_ecr_repository.admin.repository_url
 }
+
+output "web_repository_url" {
+  description = "ECR URL for the web image"
+  value       = aws_ecr_repository.web.repository_url
+}

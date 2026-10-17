@@ -31,3 +31,20 @@ resource "aws_lb_listener_rule" "admin" {
     }
   }
 }
+
+
+resource "aws_lb_listener_rule" "web" {
+  listener_arn = aws_lb_listener.https.arn
+  priority     = 300
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.web.arn
+  }
+
+  condition {
+    host_header {
+      values = ["app.${var.domain_name}"]
+    }
+  }
+}

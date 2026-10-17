@@ -39,3 +39,9 @@ variable "admin_port" {
   type        = number
   #   default = 3100
 }
+
+variable "web_port" {
+  description = "Container port for the web Next.js app"
+  type        = number
+  #   default = 3200
+}
